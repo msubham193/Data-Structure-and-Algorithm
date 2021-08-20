@@ -1,0 +1,40 @@
+/*
+	Time Complexity: O(N*log(N))
+	Space Complexity: O(N),
+
+	where N is the number of elements in the array
+*/
+
+// Function to count the number of set bits in an integer
+int countSetBits(int number)
+{
+	int count = 0;
+	while (number != 0)
+	{
+		count += (number & 1);
+		// Using bitwise right shift to divide the number by two
+		number = number >> 1;
+	}
+
+	return count;
+}
+
+void sortSetBitsCount(vector<int>& arr, int size)
+{
+	// Multimap to store the (count of set bits, integer) pair
+	multimap<int, int> result;
+	int value;
+	for (int i = 0; i < size; i++)
+	{
+		value = countSetBits(arr[i]);
+		result.insert({(-1 * value), arr[i]});
+	}
+
+	arr.clear();
+	// Traversing the Multimap to retrieve the order
+	for (auto j : result)
+	{
+		arr.push_back(j.second);
+	}
+
+}
