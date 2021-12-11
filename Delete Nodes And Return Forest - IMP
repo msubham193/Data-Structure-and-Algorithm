@@ -1,0 +1,36 @@
+class Solution {
+    vector<TreeNode*> res;
+    set<int> delSet;
+public:
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+        for (int i : to_delete) 
+        {
+            delSet.insert(i);  
+        }
+        
+        if (delSet.find(root->val) == delSet.end())
+        {
+           res.push_back(root);
+        }
+        
+        dfs(root);
+        
+        
+        return res;
+    }
+    TreeNode* dfs(TreeNode* node) {
+        if (node == NULL) return NULL;
+        node->left = dfs(node->left);
+        node->right =  dfs(node->right);
+ 
+        if (delSet.find(node->val) != delSet.end()){
+            if (node->left != NULL)  res.push_back(node->left );
+            if (node->right != NULL)  res.push_back(node->right);
+            return NULL;
+        }
+        return node;
+    }
+};
+
+
+link - - https://leetcode.com/problems/delete-nodes-and-return-forest/
