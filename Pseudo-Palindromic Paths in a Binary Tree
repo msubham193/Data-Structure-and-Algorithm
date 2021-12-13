@@ -1,0 +1,52 @@
+*/
+class Solution {
+public: 
+    int ans;
+    int pseudoPalindromicPaths (TreeNode* root) {
+        
+        vector<int>freq(10,0);
+        helper(root,freq);
+        return ans;
+        
+    }
+    void helper(TreeNode* root,vector<int>freq)
+    {
+        
+          freq[root->val]++;
+        
+        if(!root->left && !root->right){
+            
+                int odd=0;
+            
+            for(auto i:freq ){
+                
+                if(i%2!=0){
+                    odd++;
+                }
+                
+                
+            }
+            
+            if(odd<2){
+                ans++;
+            }
+            
+        }
+        else{
+            
+             if(root->left)helper(root->left,freq);
+             if(root->right)helper(root->right,freq);
+            
+        }
+        
+        freq[root->val]--;
+        
+        
+        
+        
+    }
+    
+};
+
+
+Problem Link ==  https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/
